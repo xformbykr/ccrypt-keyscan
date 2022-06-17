@@ -1,0 +1,4 @@
+Random seed: 1653508773
+Total: 0 differences
+The optimized Rijndael implementation agrees with the reference implementation.
+PASS rijndael-check (exit status: 0)

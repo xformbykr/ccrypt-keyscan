@@ -1,0 +1,27 @@
+1.  chaeck out the file boundaries per the filenames
+and rec_dup.1 directory, vs. hexdump of 'img' file  (DONE; they are sectors)
+
+2.  reproduce the shutoff problem using excised file.  then
+work in 'ddd' to resolve it.
+
+dd if=/media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img of=findNo1.short.cpt bs=32 skip=4258005459 count=32
+../src/ccrypt -n -K buddhakarmamysticschmuck findNo1.short.cpt
+
+I've changed line 402 of ccryptlib.c to break out of loop, not to return
+out of loop. this removed 
+
+3.  look at decrypted file; does it begin       1f 8b 08?  (NO) 
+
+4.  change code to work through the whole image file, not
+just stop at the first one! 'tee' the output and 2>&1 
+  (i.e., stderr to stdout)
+
+5.  test this with a composed file with multiple key-hits,
+ using 'cat'. 
+
+6.  double check with small files, all of your assumptions
+  about what happens when IV is found.  that is, make a test
+  file, using -n to locate IV, then use 'dd' to 'back-excise'
+  the file, and check the result.
+
+

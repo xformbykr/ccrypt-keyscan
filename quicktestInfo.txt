@@ -1,0 +1,40 @@
+how to check out ccrypt key with binary data:
+1.  try to run ccrypt without changing file using a 'reference' key:
+ccat -y terms.cpt -K buddhakarmamysticschmuck terms.cpt
+
+2.  try without explicity K key:
+ccat -y terms.cpt  terms.cpt    (fails; wants key entry)
+
+3.  try without '-y' term: 
+ccat -K buddhakarmamysticschmuck terms.cpt   (ok)
+
+4. use the shell to get the result:
+   R=$(ccat -K buddhakarmamysticschmuck testx.cpt 2>%1 > /dev/null); echo $?
+error msg suppressed. 
+
+5.  make a short test file of the first half of the 'terms.cpt' file:
+dd bs=1 if=terms.cpt of=test.cpt count=104
+
+6.  try out ccat on it:
+ccat -K buddhakarmamysticschmuck test.cpt
+7.  use shell formulation to show '0' return:
+ R=$(ccat -K buddhakarmamysticschmuck test.cpt 2>%1 > /dev/null); echo $?
+ => '0'
+8.  prepend 10 bytes random data onto the 'test.cpy' file:
+2022  dd if=/dev/random bs=1 of=rand.bin count=10
+ 2024  cat rand.bin test.cpt > test2.cpt
+9.  try shell formulation with 'test2.cpt':
+R=$(ccat -K buddhakarmamysticschmuck test2.cpt 2>%1 > /dev/null); echo $?
+ => '4'
+10.  you can append data as well:
+  2013  cat terms.cpt rand.bin > testA.cpt
+  2014  ccat -K buddhakarmamysticschmuck testA.cpt
+this means that we can (a) locate where encryption starts, (b) decrypt a
+big lot of data afterwards, (c) save to a file, (d) use 'photorec' on that
+file to recognize file material within it.  (I THINK!)
+  you will want to use test cases for 'regression testing', etc. !!!
+
+all of this means is that we can visit some arbirary place in the image, make
+a short file, test with ccat, and note if we get a hit.  number of sectors = 
+10^12 / 512 = 2 x 10^9.  so it's a lot of overhead to move program in and
+out of memory.  

@@ -1,0 +1,52 @@
+15 june 2022
+
+recup_dir.1/
+./harvest.sh /media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img 109923528 200
+report.xml showed file length was same as block byte run length
+
+recup_dir.2/
+initially ran ./harvest.sh /media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img 110034675 1764
+report.xml showed block bytes run less than file length. insufficient for
+file.  
+so i increased
+file length by running
+./harvest.sh /media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img 110034675 1776
+ this time we have 7274464 for image length and 7274496 for block byte runs.
+ the command zcat xxx | tar tf- showd file contents.
+
+recup_dir.3/
+initially ran  ./harvest.sh /media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img 110137082 471
+ report.xml shows file length 1929184 and block byte runs 1966080.
+ this should be ok
+the command zcat xxx | tar tf- showd file contents.  (two txt files only)
+
+recup_dir.4/
+initially ran ./harvest.sh /media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img 110370599 824.5 but this produces some kinda problem
+so tryling next integer up
+./harvest.sh /media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img 110370599 825
+ report.xml shows file length 3379168, block byte run 3407872 (just larger.)
+gunzip -l claims uncomporessed len 3533483508
+we still have problem with zcat.  will try  larger:  834
+ this time report.xml file length: 3416032, block run 3473408 (just larger.)
+gunzip -l claims uncomporessed len 2681380834
+  1650 - 2949857088
+  3200 - 2949857088  but always
+  MANIPULATING LENGTH DID NOT CURE THE PROBLEM!!! 
+(SEE recup_dir.5)
+
+recup_dir.6/
+initally ran ./harvest.sh /media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img 191624906 2078.25 and had 'just data'
+trying ./harvest.sh /media/cae/Seagate\ Expansion\ Drive/ToshRebuild/toshiba.full.img 191624906 2500
+
+find recup_dir.* -name "f00*.*" -exec gunzip -l {} \;
+ this produces:
+         compressed        uncompressed  ratio uncompressed_name
+            7274464           920535532  99.2% recup_dir.2/f0000000
+         compressed        uncompressed  ratio uncompressed_name
+            1929184          3798470392  99.9% recup_dir.3/f0000000.tar
+         compressed        uncompressed  ratio uncompressed_name
+            3416032          2681380834  99.9% recup_dir.4/f0000000
+         compressed        uncompressed  ratio uncompressed_name
+           13107168          2949857088  99.6% recup_dir.5/f0000000
+c
+

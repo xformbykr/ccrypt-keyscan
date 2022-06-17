@@ -1,0 +1,78 @@
+hacking ccrypt to provide ability to scan through a file looking
+for IV that matches a given key.  this is in the interest of recovering
+'cpt' (encrypted) files from a 1 TB external HD whose NTFS FAT was 
+overwritten by mistake.
+
+1.  add new command line keyword, "-n" and apposition phrase
+2.  add a new 'mode' SCAN into const char *mode[] = { .... }
+3.  add fprintf line about scan
+4.  add char 'n' to 'shortopts' 
+5. add lines to 'main.c'
+362a368,371
+>     case 'n':
+>       cmd.scan = 1;
+>       cmd.mode = SCAN; 
+>       break;
+598a608,616
+>       break;
+> 
+>     case SCAN:
+>       /*
+>       r = cckeyscan_streams(stdin, stdout, cmd.keyword);
+>       */
+>       fprintf(stderr, _("came to scan\n"));
+> 
+>       r = cckeyscan_streams(stdin, NULL, cmd.keyword);
+6.  add lines to ccryptlib.h:
+  (note that additional 'state' variables can be held in the stream structure. )
+diff -r1.1 ccryptlib.h
+21a22
+>   unsigned int  stream_position; /* position in entire stream. */ 
+39c40,41
+< 
+---
+> int cckeyscan     (ccrypt_stream_t *b);
+> int cckeyscan_end (ccrypt_stream_t *b);
+	
+7.  write new function cckeyscan() that reads 32 bytes at a time, checks the
+ first 4 for a 'good' IV with given key. 
+8.  modify function ________ to seek forward cmd.xxxx in the file, and to stop
+  after cmd.yyyyyy, where yyyyy-xxxxxx is a multiple of 32.  
+ see following guidance for using 'lseek':
+https://linuxhint.com/use-lseek-system-call-c/
+and
+ #include "syscalls.h"
+
+   /*get:  read n bytes from position pos */
+   int get(int fd, long pos, char *buf, int n)
+   {
+       if (lseek(fd, pos, 0) >= 0) /* get to pos */
+           return read(fd, buf, n);
+       else
+           return -1;
+   }
+you should 'malloc' the char *buf before the call, of course!
+will be on the order of Mbytes, I believe.
+
+=====================================
+for searching in 1 TB maybe need GPU/parallel:
+https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-36-aes-encryption-and-decryption-gpu
+https://www.ijser.org/paper/ACCELERATING-ENCRYPTION-DECRYPTION-USING-GPUS-FOR-AES-ALGORITHM.html
+https://github.com/Skycker/AES
+https://github.com/search?q=AES+GPU&type=
+https://github.com/micallef25/GPU-AES-Encryption
+https://github.com/PaulPauls/AES_on_RPi_GPU
+https://github.com/zorawar87/cuda-aes-encryption
+https://github.com/andrea29292/GPU_AES
+https://github.com/moep0/aes_gpu   (careful. lotsa chinese)
+https://github.com/willstruggle/AES-accelerated-by-GPU-CUDA-   (do look at this! 'nvcc')
+		110 gbps achieved? that would make search problem feasible!
+
+
+
+
+ 
+
+
+
+

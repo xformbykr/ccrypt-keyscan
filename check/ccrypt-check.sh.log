@@ -1,0 +1,2 @@
+./ccrypt-check.sh: test succeeded
+PASS ccrypt-check.sh (exit status: 0)

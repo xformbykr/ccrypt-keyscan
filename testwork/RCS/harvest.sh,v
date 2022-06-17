@@ -1,0 +1,43 @@
+head	1.1;
+access;
+symbols;
+locks
+	cae:1.1; strict;
+comment	@# @;
+
+
+1.1
+date	2022.06.15.17.40.00;	author cae;	state Exp;
+branches;
+next	;
+
+
+desc
+@good working version, saving onto toshiba external drive
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#!/bin/bash
+
+# harvest.sh : shell script to attempt to harvest from known key site
+# a give file offset
+
+INFILE=$1
+OFFSET=$2
+NBYTES=$3
+
+DD=/bin/dd
+rm xxx
+$DD if="${INFILE}" of=xxx.cpt bs=1 skip=$OFFSET count=$NBYTES
+/usr/bin/ccrypt -d -K buddhakarmamysticschmuck xxx.cpt && \
+ /usr/bin/photorec /d /media/cae/41E45CE51943C5FB/ccrypt_recup \
+      /cmd xxx partition_none,fileopt,everything,enable,search
+
+
+
+@

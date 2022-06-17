@@ -1,0 +1,2 @@
+./length-check.sh: test succeeded
+PASS length-check.sh (exit status: 0)

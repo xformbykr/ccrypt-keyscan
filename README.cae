@@ -1,0 +1,12 @@
+readme file from cae on 5/25/22
+
+attempting to add another capability within source code, to assist
+in 'forensic' search for cpt encrypted file within a huge disk image.
+
+idea is to run through stream until 'magic' c051 is found in decrypt
+of a 32-byte block.  
+
+will add command line directive, then stub code to be run, then
+actual code to be run.  
+
+hopefully will add check code, too.

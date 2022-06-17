@@ -1,0 +1,58 @@
+We will scan for IV per key.
+  call cckeyscan_streams
+    found matching key. position 864
+    after stream position 136256173888
+    found matching key. position 352
+    after stream position 161514820000
+    found matching key. position 224
+    after stream position 166426163744
+    found matching key. position 608
+    after stream position 199755552576
+    found matching key. position 480
+    after stream position 254322226368
+    found matching key. position 672
+    after stream position 268965941376
+    found matching key. position 576
+    after stream position 334532628448
+    found matching key. position 384
+    after stream position 376964720736
+    found matching key. position 576
+    after stream position 412460325248
+    found matching key. position 576
+    after stream position 447883233216
+    found matching key. position 32
+    after stream position 450246775968
+    found matching key. position 576
+    after stream position 450702033568
+    found matching key. position 384
+    after stream position 451121493408
+    found matching key. position 608
+    after stream position 452077979200
+    found matching key. position 928
+    after stream position 452262041440
+    found matching key. position 256
+    after stream position 452480007584
+    found matching key. position 672
+    after stream position 453337394432
+    found matching key. position 608
+    after stream position 453438148576
+    found matching key. position 736
+    after stream position 488710256704
+    found matching key. position 896
+    after stream position 492014334656
+    found matching key. position 128
+    after stream position 553599519840
+    found matching key. position 288
+    after stream position 784895624800
+    found matching key. position 704
+    after stream position 818180701056
+    found matching key. position 640
+    after stream position 925790424416
+    found matching key. position 320
+    after stream position 929511769216
+    found matching key. position 576
+    after stream position 952042067584
+    found matching key. position 576
+    after stream position 955607874656
+    found matching key. position 384
+    after stream position 987442191872

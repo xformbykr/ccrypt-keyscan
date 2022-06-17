@@ -1,0 +1,12 @@
+We will scan for IV per key.
+  call cckeyscan_streams
+  found magic at stream position 199755551744
+  found magic at stream position 450246770688
+  found magic at stream position 450702028800
+  found magic at stream position 451121487872
+  found magic at stream position 452077973504
+  found magic at stream position 452262035456
+  found magic at stream position 452480000000
+  found magic at stream position 453337387008
+  found magic at stream position 453438140416
+  found magic at stream position 784895613952
